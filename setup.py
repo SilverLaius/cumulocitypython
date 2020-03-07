@@ -7,8 +7,8 @@ setup(
   description = 'Purpose of this package is to easily request historical data from your cumulocity tenant and return it as a pandas dataframe.',
   author = 'Silver Laius',
   author_email = 'silver.laius@gmail.com',
-  url = 'https://github.com/SilverLaius/cumulocity-python',
-  download_url = 'https://github.com/SilverLaius/cumulocity-python/archive/v_01.tar.gz',
+  url = 'https://github.com/SilverLaius/cumulocitypython',
+  download_url = 'https://github.com/SilverLaius/cumulocitypython/archive/1.1.2.tar.gz',
   keywords = ['Python', 'Cumulocity', 'Pandas'],
   install_requires=[
           'python-dateutil',
