@@ -2,13 +2,13 @@ from distutils.core import setup
 setup(
   name = 'cumulocitypython',
   packages = ['cumulocitypython'],
-  version = '0.1.2',
+  version = '0.1.3',
   license='MIT',
   description = 'Purpose of this package is to easily request historical data from your cumulocity tenant and return it as a pandas dataframe.',
   author = 'Silver Laius',
   author_email = 'silver.laius@gmail.com',
   url = 'https://github.com/SilverLaius/cumulocitypython',
-  download_url = 'https://github.com/SilverLaius/cumulocitypython/archive/1.1.2.tar.gz',
+  download_url = 'https://github.com/SilverLaius/cumulocitypython/archive/1.1.3.tar.gz',
   keywords = ['Python', 'Cumulocity', 'Pandas'],
   install_requires=[
           'python-dateutil',

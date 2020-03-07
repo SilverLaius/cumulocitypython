@@ -15,7 +15,7 @@ import time
 from dateutil import parser, tz
 from datetime import datetime, timedelta
 
-class CumulocityPython:
+class CumulocityConnection:
         def __init__(self, base_url, username, password):
             credentials = b64encode(bytes(username + ':' + password, "utf-8")).decode("ascii")
             self.headers = { 'Authorization' : 'Basic %s' %  credentials }

@@ -1,1 +1,1 @@
-from .CumulocityPython import CumulocityPython
+from .connection import CumulocityConnection
