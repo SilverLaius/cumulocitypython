@@ -1,1 +1,1 @@
-from cumulocitypython.CumulocityPython import CumulocityPython
+from .CumulocityPython import CumulocityPython

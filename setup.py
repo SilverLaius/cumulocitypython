@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
   name = 'cumulocitypython',
   packages = ['cumulocitypython'],
-  version = '0.1.1',
+  version = '0.1.2',
   license='MIT',
   description = 'Purpose of this package is to easily request historical data from your cumulocity tenant and return it as a pandas dataframe.',
   author = 'Silver Laius',

@@ -19,26 +19,26 @@ measurement_data = connection.get_measurements(
         )
 
 #Export the data to a csv
-#measurement_data.to_csv("YOUR_CSV_NAME.csv", index=False, encoding="utf8")
+measurement_data.to_csv("YOUR_CSV_NAME.csv", index=False, encoding="utf8")
 
 
 #EXAMPLE
 #Fetch events from Cumulocity
-#event_data = connection.get_events(
-#            device_id="1198662331",
-#            date_from="07-30-19 12:00:00",
-#            date_to="07-30-19 13:00:00",
-#            timedelta=timedelta(hours=3)
-#        )
+event_data = connection.get_events(
+            device_id="1198662331",
+            date_from="07-30-19 12:00:00",
+            date_to="07-30-19 13:00:00",
+            timedelta=timedelta(hours=3)
+        )
 
 #Export the data to a csv
-#event_data.to_csv("YOUR_CSV_NAME.csv", index=False, encoding="utf8")
+event_data.to_csv("YOUR_CSV_NAME.csv", index=False, encoding="utf8")
 
 
 #EXAMPLE
-#ids=[117925736,117925737,117925738,117925739,117925740,117925741,117925742,117925743,117925744,117925745,117925746, 117925747, 117925748, 117925749, 117925750, 117925751]
+ids=[117925736,117925737,117925738,117925739,117925740,117925741,117925742,117925743,117925744,117925745,117925746, 117925747, 117925748, 117925749, 117925750, 117925751]
 #Fetch devices from Cumulocity
-#device_data = connection.get_devices(ids=ids, page_size=1000)
+device_data = connection.get_devices(ids=ids, page_size=1000)
 
 #Export the data to a csv
-#device_data.to_csv("YOUR_CSV_NAME.csv", index=False, encoding="utf8")
+device_data.to_csv("YOUR_CSV_NAME.csv", index=False, encoding="utf8")

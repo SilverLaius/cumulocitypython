@@ -9,7 +9,7 @@ pip install cumulocitypython
 ## import lthe CumulocityConnection class
 
 ```python
-from cumulocity-python import CumulocityConnection
+from cumulocitypython import CumulocityConnection
 ```
 
 ## Enter your credentials and create the connection
