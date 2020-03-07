@@ -1,4 +1,4 @@
-This package allows you to connect to your cumulocity platform and query historical data from their REST API. Currently it only supports devices, measurements and events endpoints. The returned json data is converted to a pandas dataframe.
+This package allows you to connect to your cumulocity platform and query historical data from the REST API. Currently it only supports devices, measurements and events endpoints. The returned json data is converted to a pandas dataframe.
 
 # Getting started
 
@@ -6,7 +6,7 @@ This package allows you to connect to your cumulocity platform and query histori
 pip install cumulocitypython
 ```
 
-## import lthe CumulocityConnection class
+## Import it
 
 ```python
 from cumulocitypython import CumulocityConnection
@@ -32,7 +32,7 @@ All the argument values should be available in your cumulocity tenant.
 
 ```python
 measurement_data = connection.get_measurements(
-            value_fragment_type="c8y_EngineMetric",
+            value_fragment_type="c8y_YourMetric",
             date_from="07-11-19 03:00:00",
             date_to="07-13-19 04:00:00",
         )
@@ -121,8 +121,8 @@ Example:
 event_data = connection.get_events(
             device_id="194442191",
             date_from="07-30-19 12:00:00",
-            date_to="07-30-19 13:00:00",
-            timedelta=timedelta(hours=3)
+            date_to="08-30-19 13:00:00",
+            timedelta=timedelta(minutes=30)
         )
 
 event_data.to_csv("YOUR_CSV_NAME.csv", index=False, encoding="utf8")
