@@ -20,7 +20,6 @@ class CumulocityConnection:
             credentials = b64encode(bytes(username + ':' + password, "utf-8")).decode("ascii")
             self.headers = { 'Authorization' : 'Basic %s' %  credentials }
             self.base_url = base_url
-            logging.basicConfig(level=logging.INFO)
         
         #returns the current offset (takes into account daylight savings)
         def __get_current_utc_offset(self):
@@ -95,14 +94,13 @@ class CumulocityConnection:
                 
                 #if request failed, throw the error to user
                 if("error" in data.keys()):
-                    raise Exception("Downloading %s failed: " % data_type + data["error"])
+                    raise Exception("The following error was returned when downloading %s batch %s:\nStatus code %s, %s." % (data_type, info_string, str(res.status), data["error"]))
                 
                 #add data to the array
                 data_array+=data[data_type]
                 
                 if int(data["statistics"]["totalPages"]) == 0:
                     return "NO_DATA"
-                
                 
                 #print progress to the userz
                 progress = (float(data["statistics"]["currentPage"]) / float(data["statistics"]["totalPages"])) * 100
@@ -143,7 +141,6 @@ class CumulocityConnection:
                 query_url = '/measurement/measurements?pageSize=' + str(page_size) + measurement_id_param + device_id_param + date_from_param + date_to_param + type_param + value_fragment_type_param + value_fragment_series_param + "&withTotalPages=true"
                 data_fragment = self.__fetch_all_data_pages(query_url, "measurements", "%s of %s" % (i+1, len(dates)))
                 if data_fragment == "NO_DATA":
-                    logging.warning("No data exists in your tenant with the given parameters")
                     break
                 data+=data_fragment
             
@@ -169,7 +166,6 @@ class CumulocityConnection:
                 query_url = "/event/events?pageSize=%s" % str(page_size) + date_from_param + date_to_param + device_id_param + type_param + fragment_type_param + "&withTotalPages=true"
                 data_fragment = self.__fetch_all_data_pages(query_url, "events", "%s of %s" % (i+1, len(dates)))
                 if data_fragment == "NO_DATA":
-                    logging.warning("No data exists in your tenant with the given parameters")
                     break
                 data+=data_fragment
             
@@ -185,7 +181,6 @@ class CumulocityConnection:
             #create query url and start making requests for data
             query_url = "/inventory/managedObjects?pageSize=%s" % str(page_size) + device_type_param + fragment_type_param + ids_param + text_param + "&withTotalPages=true"
             data = self.__fetch_all_data_pages(query_url, "managedObjects", "devices")
-            if data == "NO_DATA":
-                logging.warning("No data exists in your tenant with the given parameters")
+
             #flatten multi level json structure to one dimension dictionary
             return pd.DataFrame([self.__flatten(m) for m in data])
