@@ -42,17 +42,17 @@ measurement_data = connection.get_measurements(
 
 These are the arguments that the get_measurements function can take. All of them are optional. The arguments are used to filter the data returned to you by Cumulocity.
 
-| Arg                   | Default value | Accepted values                         | Description                                                   |
-| --------------------- | ------------- | --------------------------------------- | ------------------------------------------------------------- |
-| date_from             | None          | any widely used date format as a string | starting date from which you want to request data from.       |
-| date_to               | None          | any widely used date format as a string | end date from which you want to request data to.              |
-| device_id             | None          | any device id as a int or string        | id of the device from which you want to request data from.    |
-| measurement_id        | None          | any measurement id as a int or string   | id of the measurement you want to request.                    |
-| measurement_type      | None          | any measurement type as a string        | type of the measurement you want to request.                  |
-| value_fragment_type   | None          | any value fragment type as a string     | value fragment type of the measurement you want to request.   |
-| value_fragment_series | None          | any value fragment series as a strinh   | value fragment series of the measurement you want to request. |
-| timedelta             | None          | timedelta object                        | speeds up big queries. supports minutes, hours, days, weeks.  |
-| page_size             | 2000          | integer from 1 to 2000                  | determines the amount of rows sent by each request.           |
+| Arg                   | Default value | Accepted values                         | Description                                                                                     |
+| --------------------- | ------------- | --------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| date_from             | None          | any widely used date format as a string | starting date from which you want to request data from. Uses the dateutil parser for formatting |
+| date_to               | None          | any widely used date format as a string | end date from which you want to request data to. Uses the dateutil parser for formatting        |
+| device_id             | None          | any device id as a int or string        | id of the device from which you want to request data from.                                      |
+| measurement_id        | None          | any measurement id as a int or string   | id of the measurement you want to request.                                                      |
+| measurement_type      | None          | any measurement type as a string        | type of the measurement you want to request.                                                    |
+| value_fragment_type   | None          | any value fragment type as a string     | value fragment type of the measurement you want to request.                                     |
+| value_fragment_series | None          | any value fragment series as a strinh   | value fragment series of the measurement you want to request.                                   |
+| timedelta             | None          | timedelta object                        | speeds up big queries. supports minutes, hours, days, weeks.                                    |
+| page_size             | 2000          | integer from 1 to 2000                  | determines the amount of rows sent by each request.                                             |
 
 #### Returns
 
@@ -73,15 +73,15 @@ event_data = connection.get_events(
 
 These are the arguments that the get_events function takes
 
-| Arg           | Default value | Accepted values                         | Description                                                  |
-| ------------- | ------------- | --------------------------------------- | ------------------------------------------------------------ |
-| date_from     | None          | any widely used date format as a string | starting date from which you want to request data from.      |
-| date_to       | None          | any widely used date format as a string | end date from which you want to request data to.             |
-| device_id     | None          | any device id as a int or string        | id of the device from which you want to request data from.   |
-| event_type    | None          | any event type as a string              | type of the event you want to request.                       |
-| fragment_type | None          | any fragment type as a string           | fragment type of the event you want to request               |
-| timedelta     | None          | timedelta object                        | speeds up big queries. supports minutes, hours, days, weeks. |
-| page_size     | 2000          | integer from 1 to 2000                  | determines the amount of rows sent by each request.          |
+| Arg           | Default value | Accepted values                         | Description                                                                                     |
+| ------------- | ------------- | --------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| date_from     | None          | any widely used date format as a string | starting date from which you want to request data from. Uses the dateutil parser for formatting |
+| date_to       | None          | any widely used date format as a string | end date from which you want to request data to. Uses the dateutil parser for formatting        |
+| device_id     | None          | any device id as a int or string        | id of the device from which you want to request data from.                                      |
+| event_type    | None          | any event type as a string              | type of the event you want to request.                                                          |
+| fragment_type | None          | any fragment type as a string           | fragment type of the event you want to request                                                  |
+| timedelta     | None          | timedelta object                        | speeds up big queries. supports minutes, hours, days, weeks.                                    |
+| page_size     | 2000          | integer from 1 to 2000                  | determines the amount of rows sent by each request.                                             |
 
 #### Returns
 
