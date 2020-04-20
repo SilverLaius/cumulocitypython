@@ -98,13 +98,14 @@ device_data = connection.get_devices(ids=ids, page_size=1000)
 
 These are the arguments that the get_devices function takes
 
-| Arg           | Default value | Accepted values                      | Description                                               |
-| ------------- | ------------- | ------------------------------------ | --------------------------------------------------------- |
-| device_type   | None          | any device type as a string          | type of the device you want to request data from.         |
-| fragment_type | None          | any device fragment type as a string | fragment type of the device you want to request data to.  |
-| ids           | None          | list of int or string id values      | list of ids of the devices you want to request data from. |
-| text          | None          | text as a string                     | attached text of the devices you want to request.         |
-| page_size     | 2000          | integer from 1 to 2000               | determines the amount of rows sent by each request.       |
+| Arg           | Default value | Accepted values                      | Description                                                                                                |
+| ------------- | ------------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
+| device_type   | None          | any device type as a string          | type of the device you want to request data from.                                                          |
+| fragment_type | None          | any device fragment type as a string | fragment type of the device you want to request data to.                                                   |
+| ids           | None          | list of int or string id values      | list of ids of the devices you want to request data from.                                                  |
+| text          | None          | text as a string                     | attached text of the devices you want to request.                                                          |
+| query         | None          | query as a string                    | query using [Cumulocity query language](https://cumulocity.com/guides/reference/inventory/#query-language) |
+| page_size     | 2000          | integer from 1 to 2000               | determines the amount of rows sent by each request.                                                        |
 
 #### Returns
 

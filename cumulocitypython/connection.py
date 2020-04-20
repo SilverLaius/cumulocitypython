@@ -86,21 +86,21 @@ class CumulocityConnection:
                 try:
                     connection.request('GET', next_url, headers=self.headers)
                     res = connection.getresponse()
+                    json_data= res.read()
+                    data = json.loads(json_data)
                 except:
-                    raise Exception("Could not connect to your Cumulocity tenant. Make sure your tenant URL is correct.")
-
-                json_data= res.read()
-                data = json.loads(json_data)
+                    raise Exception("Request failed! \nUrl: %s \nResponse status code: %s,\nResponse: %s" % (self.base_url + initial_url, res.status, json_data))
                 
                 #if request failed, throw the error to user
                 if("error" in data.keys()):
                     raise Exception("The following error was returned when downloading %s batch %s:\nStatus code %s, %s." % (data_type, info_string, str(res.status), data["error"]))
                 
-                #add data to the array
-                data_array+=data[data_type]
-                
+                #if there are no pages, return "NO_DATA" and handle it in the parent function
                 if int(data["statistics"]["totalPages"]) == 0:
                     return "NO_DATA"
+                
+                #add data to the array
+                data_array+=data[data_type]
                 
                 #print progress to the userz
                 progress = (float(data["statistics"]["currentPage"]) / float(data["statistics"]["totalPages"])) * 100
@@ -138,8 +138,8 @@ class CumulocityConnection:
                 date_to_param = "&dateTo=%s" % date_period_to if date_period_to else ""
                 
                 #create query url and start making requests for data
-                query_url = '/measurement/measurements?pageSize=' + str(page_size) + measurement_id_param + device_id_param + date_from_param + date_to_param + type_param + value_fragment_type_param + value_fragment_series_param + "&withTotalPages=true"
-                data_fragment = self.__fetch_all_data_pages(query_url, "measurements", "%s of %s" % (i+1, len(dates)))
+                request_url = '/measurement/measurements?pageSize=' + str(page_size) + measurement_id_param + device_id_param + date_from_param + date_to_param + type_param + value_fragment_type_param + value_fragment_series_param + "&withTotalPages=true"
+                data_fragment = self.__fetch_all_data_pages(request_url, "measurements", "%s of %s" % (i+1, len(dates)))
                 if data_fragment == "NO_DATA":
                     break
                 data+=data_fragment
@@ -163,8 +163,8 @@ class CumulocityConnection:
                 date_to_param = "&dateTo=%s" % date_period_to if date_period_to else ""
                 
                 #create query url and start making requests for data
-                query_url = "/event/events?pageSize=%s" % str(page_size) + date_from_param + date_to_param + device_id_param + type_param + fragment_type_param + "&withTotalPages=true"
-                data_fragment = self.__fetch_all_data_pages(query_url, "events", "%s of %s" % (i+1, len(dates)))
+                request_url = "/event/events?pageSize=%s" % str(page_size) + date_from_param + date_to_param + device_id_param + type_param + fragment_type_param + "&withTotalPages=true"
+                data_fragment = self.__fetch_all_data_pages(request_url, "events", "%s of %s" % (i+1, len(dates)))
                 if data_fragment == "NO_DATA":
                     break
                 data+=data_fragment
@@ -172,15 +172,16 @@ class CumulocityConnection:
             #flatten multi level json structure to one dimension dictionary
             return pd.DataFrame([self.__flatten(e) for e in data])
         
-        def get_devices(self, device_type=None, fragment_type=None, ids=None, text=None, page_size=2000):
+        def get_devices(self, device_type=None, fragment_type=None, ids=None, text=None, query=None, page_size=2000):
             device_type_param = "&deviceType=%s" % device_type if device_type else ""
             fragment_type_param = "&fragmentType=%s" % fragment_type if fragment_type else ""
             ids_param = "&ids=%s" % ",".join([str(i) for i in ids]) if ids else ""
+            query_param = "&query=%s" % query if query else ""
             text_param = "&text=%s" % text if text else ""
             
             #create query url and start making requests for data
-            query_url = "/inventory/managedObjects?pageSize=%s" % str(page_size) + device_type_param + fragment_type_param + ids_param + text_param + "&withTotalPages=true"
-            data = self.__fetch_all_data_pages(query_url, "managedObjects", "devices")
+            request_url = "/inventory/managedObjects?withTotalPages=true&pageSize=%s" % str(page_size) + device_type_param + fragment_type_param + ids_param + text_param + query_param
+            data = self.__fetch_all_data_pages(request_url, "managedObjects", "devices")
 
             #flatten multi level json structure to one dimension dictionary
             return pd.DataFrame([self.__flatten(m) for m in data])
