@@ -173,7 +173,7 @@ class CumulocityConnection:
             return pd.DataFrame([self.__flatten(e) for e in data])
         
         def get_devices(self, device_type=None, fragment_type=None, ids=None, text=None, query=None, page_size=2000):
-            device_type_param = "&deviceType=%s" % device_type if device_type else ""
+            device_type_param = "&type=%s" % device_type if device_type else ""
             fragment_type_param = "&fragmentType=%s" % fragment_type if fragment_type else ""
             ids_param = "&ids=%s" % ",".join([str(i) for i in ids]) if ids else ""
             query_param = "&query=%s" % query if query else ""
